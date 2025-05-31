@@ -3,9 +3,16 @@ spring:
     name: Sistema de cadastro QRcode
   datasource:
     url: jdbc:postgresql://192.168.1.6:5432/funcionariosdb
-    driver-class-name: org.postgresql.Driver
     username: zerbieti
     password: zerbieti1
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      idle-timeout: 30000
+      pool-name: qrcode-db-pool
+      max-lifetime: 1800000
+      connection-timeout: 20000
   jpa:
     show-sql: true
     properties:
