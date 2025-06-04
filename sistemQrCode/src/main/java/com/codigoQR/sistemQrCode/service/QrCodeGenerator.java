@@ -16,5 +16,6 @@ public class QrCodeGenerator {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         MatrixToImageWriter.writeToStream(matrix, "PNG", outputStream);
         return outputStream.toByteArray();
+
     }
 }
