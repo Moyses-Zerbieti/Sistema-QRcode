@@ -36,5 +36,6 @@ public class AtualizarDadosValidacao {
     public FuncionarioEntity buscarOuFalhar(Integer id){
         return repository.findById(id)
                 .orElseThrow(() ->new ResourceNotFoundException("Funcionário com id"  + id + " não encontrado."));
+
     }
 }
