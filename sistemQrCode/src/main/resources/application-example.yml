@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: Sistema de cadastro QRcode
+  datasource:
+    url: jdbc:postgresql://localhost:5432/qrcodedb
+    username: ********
+    password: ********
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      idle-timeout: 30000
+      pool-name: qrcode-db-pool
+      max-lifetime: 1800000
+      connection-timeout: 20000
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ********************
+    password: ************
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
