@@ -1,41 +1,50 @@
-# Sistema de Cadastro de Funcionários
+# Sistema de Cadastro de Funcionários com QR Code
 
-Este é um sistema web desenvolvido em Java com Spring Boot que permite o cadastro e gerenciamento de funcionários em uma empresa.
+[![Status](https://img.shields.io/badge/status-em%20desenvolvimento-yellow)](https://github.com/seuusuario/seurepositorio)  
+[![Java](https://img.shields.io/badge/Java-21+-blue)](https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html)  
+[![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.4.5-green)](https://spring.io/projects/spring-boot)  
+[![License](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
+
+---
+
+## Descrição
+
+Sistema web desenvolvido em **Java 21** com **Spring Boot** para gerenciar o cadastro de funcionários em uma empresa, incluindo geração e envio automático de QR Codes via e-mail para identificação facilitada.
+
+---
 
 ## 🚧 Status do Projeto
 
-**Em desenvolvimento.**  
-Este projeto está em fase inicial e ainda receberá muitas melhorias e novos recursos ao longo do tempo.
+O projeto está em fase de desenvolvimento e está sendo constantemente aprimorado com novas funcionalidades.
 
-## 🎯 Objetivo
+---
 
-A aplicação tem como objetivo:
+## 🎯 Objetivos Principais
 
-- Cadastrar funcionários com nome, CPF, matrícula e e-mail corporativo.
-- Enviar QR Code para o e-mail do funcionário após o cadastro.
-- Permitir atualização e listagem dos funcionários cadastrados.
-- Garantir autenticação segura para o responsável pelo cadastro.
+- Cadastro completo de funcionários (nome, CPF, matrícula, e-mail corporativo,data de nascimento,cargo e setor de trabalho).
+- Geração automática de QR Code para cada funcionário cadastrado.
+- Envio do QR Code para o e-mail corporativo do funcionário.
+- Atualização e listagem dos funcionários cadastrados.
+- Autenticação segura para o responsável pelos cadastros via token enviado por e-mail.
+
+---
 
 ## 🛠 Tecnologias Utilizadas
 
-- Java 21+
-- Spring Boot
-- Spring Web
-- Spring Data JPA
-- H2 / MySQL (dependendo do ambiente)
-- Swagger (em breve)
-- Postman (para testes de API)
-
-## 📌 Próximos Passos
-
-- Implementar autenticação com token via e-mail para o responsável.
-- Enviar QR Code automaticamente após cadastro.
-- Melhorar documentação com Swagger.
-- Criar interface web para o sistema (futuramente).
-
-## 📬 Contato
-
-Em caso de dúvidas ou sugestões, sinta-se à vontade para abrir uma issue ou entrar em contato.
+- Java 21  
+- Spring Boot 3.4.5  
+- Spring Web MVC  
+- Spring Data JPA  
+- Spring Boot Mail (para envio de e-mails)  
+- ZXing (biblioteca para geração de QR Code)  
+- Banco de dados: PostgreSQL (produção)  
+- Swagger/OpenAPI para documentação da API (em desenvolvimento)  
+- Postman para testes da API  
 
 ---
-> Este repositório está em constante evolução e novas funcionalidades serão adicionadas em breve. ⭐
+
+## 📌 Roadmap / Próximos Passos
+
+- Finalizar a documentação da API com Swagger UI.
+
+---
