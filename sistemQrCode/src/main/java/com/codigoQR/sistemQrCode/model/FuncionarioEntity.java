@@ -1,6 +1,8 @@
 package com.codigoQR.sistemQrCode.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -20,6 +22,7 @@ public class FuncionarioEntity {
     private  String cpf;
 
     @Column(name = "data_nascimento", nullable = false)
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataNascimento;
 
     @Column(name = "matricula", nullable = false, unique = true)
