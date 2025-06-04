@@ -3,7 +3,6 @@
 [![Status](https://img.shields.io/badge/status-em%20desenvolvimento-yellow)](https://github.com/seuusuario/seurepositorio)  
 [![Java](https://img.shields.io/badge/Java-21+-blue)](https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html)  
 [![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.4.5-green)](https://spring.io/projects/spring-boot)  
-[![License](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
 
 ---
 
