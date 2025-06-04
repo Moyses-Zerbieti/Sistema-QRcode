@@ -1,0 +1,25 @@
+# Ignorar arquivo com senha e configs locais
+src/main/resources/application.yml
+
+# Arquivos do IntelliJ IDEA
+.idea/
+*.iml
+out/
+
+# Pastas de build
+target/
+build/
+
+# Arquivos Java compilados
+*.class
+
+# Logs
+*.log
+
+# Arquivos temporários do sistema
+.DS_Store
+Thumbs.db
+
+# Diretórios do Maven
+.mvn/
+

@@ -2,9 +2,9 @@ spring:
   application:
     name: Sistema de cadastro QRcode
   datasource:
-    url: jdbc:postgresql://192.168.1.6:5432/funcionariosdb
-    username: zerbieti
-    password: zerbieti1
+    url: jdbc:postgresql://localhost:5432/qrcodedb
+    username: postgres
+    password: postgres
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 10
@@ -15,6 +15,19 @@ spring:
       connection-timeout: 20000
   jpa:
     show-sql: true
+    hibernate:
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: cfsd02.2021rec151@gmail.com
+    password: apebacxvxttaiagy
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
