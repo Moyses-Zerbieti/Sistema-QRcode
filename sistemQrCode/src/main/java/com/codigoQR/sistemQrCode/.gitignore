@@ -1,6 +1,7 @@
 # Ignorar arquivo com senha e configs locais
 src/main/resources/application.yml
 
+
 # Arquivos do IntelliJ IDEA
 .idea/
 *.iml
