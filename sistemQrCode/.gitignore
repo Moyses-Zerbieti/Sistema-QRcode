@@ -29,5 +29,5 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
-### VS Code ###
-.vscode/
+# Arquivo com credenciais (não enviar para o repositório)
+sistemQrCode/src/main/resources/application.yml
