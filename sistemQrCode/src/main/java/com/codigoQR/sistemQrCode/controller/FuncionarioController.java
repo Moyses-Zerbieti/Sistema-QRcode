@@ -1,8 +1,9 @@
 package com.codigoQR.sistemQrCode.controller;
 
-
+import com.codigoQR.sistemQrCode.dto.FuncionarioRequest;
 import com.codigoQR.sistemQrCode.model.FuncionarioEntity;
 import com.codigoQR.sistemQrCode.service.ServiceCadastro;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,14 +16,14 @@ public class FuncionarioController {
     }
 
     @PostMapping
-    public ResponseEntity<?> salvar (@RequestBody FuncionarioEntity novoFuncionarioEntity){
-            FuncionarioEntity salvo = service.salvar(novoFuncionarioEntity);
-            return ResponseEntity.status(201)
-                    .body("Funcionário cadastrado com sucesso! QR Code enviado para " + salvo.getEmailCorporativo());
+    public ResponseEntity<?> salvar(@Valid @RequestBody FuncionarioRequest funcionarioRequest) {
+        FuncionarioEntity salvo = service.salvar(funcionarioRequest);
+        return ResponseEntity.status(201)
+                .body("Funcionário cadastrado com sucesso! QR Code enviado para " + salvo.getEmailCorporativo());
     }
 
-    @GetMapping
-    public FuncionarioEntity consultaId(@RequestParam("id") Integer id){
+    @GetMapping("{id}")
+    public FuncionarioEntity consultaId(@PathVariable Integer id){
         return service.consultaId(id);
     }
 
