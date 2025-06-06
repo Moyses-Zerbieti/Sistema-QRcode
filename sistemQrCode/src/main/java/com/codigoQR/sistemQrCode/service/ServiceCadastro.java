@@ -2,6 +2,7 @@ package com.codigoQR.sistemQrCode.service;
 
 import com.codigoQR.sistemQrCode.Exception.ResourceNotFoundException;
 import com.codigoQR.sistemQrCode.Exception.ValidacaoException;
+import com.codigoQR.sistemQrCode.dto.FuncionarioRequest;
 import com.codigoQR.sistemQrCode.model.FuncionarioEntity;
 import com.codigoQR.sistemQrCode.repository.FuncionariosRepository;
 import jakarta.validation.constraints.NotNull;
@@ -30,12 +31,18 @@ public class ServiceCadastro {
         this.qrCodeGenerator = qrCodeGenerator;
     }
 
-    public FuncionarioEntity salvar(FuncionarioEntity novoFuncionarioEntity) {
-        validacao.validarFuncionario(novoFuncionarioEntity);
+    public FuncionarioEntity salvar(FuncionarioRequest dto) {
+        FuncionarioEntity novoFuncionarioEntity = new FuncionarioEntity();
 
-        if (novoFuncionarioEntity.getMatricula() == null) {
-            novoFuncionarioEntity.setMatricula(UUID.randomUUID());
-        }
+        novoFuncionarioEntity.setNomeCompleto(dto.getNomeCompleto());
+        novoFuncionarioEntity.setCpf(dto.getCpf());
+        novoFuncionarioEntity.setDataNascimento(dto.getDataNascimento());
+        novoFuncionarioEntity.setEmailCorporativo(dto.getEmailCorporativo());
+        novoFuncionarioEntity.setCargo(dto.getCargo());
+        novoFuncionarioEntity.setSetor(dto.getSetor());
+        novoFuncionarioEntity.setMatricula(UUID.randomUUID());
+
+        validacao.validarFuncionario(novoFuncionarioEntity);
 
         FuncionarioEntity salvo = repository.save(novoFuncionarioEntity);
 
