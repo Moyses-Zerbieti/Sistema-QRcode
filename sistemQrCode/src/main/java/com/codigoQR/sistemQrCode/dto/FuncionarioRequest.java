@@ -1,6 +1,5 @@
 package com.codigoQR.sistemQrCode.dto;
 
-import com.codigoQR.sistemQrCode.model.SetorTrabalho;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -28,7 +27,7 @@ public class FuncionarioRequest {
     private String cargo;
 
     @NotNull(message = "O setor é obrigatório.")
-    private SetorTrabalho setor;
+    private String setor;
 
     public String getNomeCompleto() {
         return nomeCompleto;
@@ -70,11 +69,11 @@ public class FuncionarioRequest {
         this.cargo = cargo;
     }
 
-    public SetorTrabalho getSetor() {
+    public String getSetor() {
         return setor;
     }
 
-    public void setSetor(SetorTrabalho setor) {
+    public void setSetor(String setor) {
         this.setor = setor;
     }
 }
