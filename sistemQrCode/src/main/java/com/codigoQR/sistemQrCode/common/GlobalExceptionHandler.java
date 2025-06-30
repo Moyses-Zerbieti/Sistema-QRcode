@@ -1,13 +1,22 @@
-package com.codigoQR.sistemQrCode.Exception;
+package com.codigoQR.sistemQrCode.common;
 
+import com.codigoQR.sistemQrCode.Exception.ErroCampo;
+import com.codigoQR.sistemQrCode.Exception.ErroResposta;
+import com.codigoQR.sistemQrCode.Exception.ResourceNotFoundException;
+import com.codigoQR.sistemQrCode.Exception.ValidacaoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -35,5 +44,22 @@ public class GlobalExceptionHandler {
         Map<String,String> erro = new HashMap<>();
         erro.put("erro", ex.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    public ErroResposta handleMethodArgumentNotValidException(MethodArgumentNotValidException e){
+        List<FieldError> fieldErrors = e.getFieldErrors();
+        List<ErroCampo> listaErros = fieldErrors
+                .stream()
+                .map(fe -> new ErroCampo(
+                        fe.getField(),
+                        fe.getDefaultMessage()))
+                .collect(Collectors.toList());
+        return new ErroResposta(
+                HttpStatus.UNPROCESSABLE_ENTITY.value(),
+                "Erro de validação",
+                listaErros
+                );
     }
 }
