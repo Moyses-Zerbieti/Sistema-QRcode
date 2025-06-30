@@ -37,7 +37,7 @@ public class FuncionarioController {
     }
 
     @PutMapping
-    public ResponseEntity<FuncionarioEntity> atualizar(@RequestBody FuncionarioEntity funcionario){
+    public ResponseEntity<FuncionarioEntity> atualizar(@Valid @RequestBody FuncionarioEntity funcionario){
         FuncionarioEntity atualizado = service.atualizarInformacoes(funcionario);
         return ResponseEntity.ok(atualizado);
     }
