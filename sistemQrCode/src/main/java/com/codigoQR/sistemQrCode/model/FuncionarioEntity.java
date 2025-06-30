@@ -34,9 +34,9 @@ public class FuncionarioEntity {
     @Column(name = "cargo", length = 20, nullable = false)
     private String cargo;
 
-    @Enumerated(EnumType.STRING)
+
     @Column(name = "setor", length = 30,nullable = false)
-    private SetorTrabalho setor;
+    private String setor;
 
     public Integer getId() {
         return id;
@@ -94,11 +94,11 @@ public class FuncionarioEntity {
         this.cargo = cargo;
     }
 
-    public SetorTrabalho getSetor() {
+    public String getSetor() {
         return setor;
     }
 
-    public void setSetor(SetorTrabalho setor) {
+    public void setSetor(String setor) {
         this.setor = setor;
     }
 }
