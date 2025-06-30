@@ -6,6 +6,9 @@ import com.codigoQR.sistemQrCode.service.ServiceCadastro;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("funcionario")
@@ -18,7 +21,13 @@ public class FuncionarioController {
     @PostMapping
     public ResponseEntity<?> salvar(@Valid @RequestBody FuncionarioRequest funcionarioRequest) {
         FuncionarioEntity salvo = service.salvar(funcionarioRequest);
-        return ResponseEntity.status(201)
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(salvo.getId())
+                .toUri();
+        return ResponseEntity
+                .created(location)
                 .body("Funcionário cadastrado com sucesso! QR Code enviado para " + salvo.getEmailCorporativo());
     }
 
