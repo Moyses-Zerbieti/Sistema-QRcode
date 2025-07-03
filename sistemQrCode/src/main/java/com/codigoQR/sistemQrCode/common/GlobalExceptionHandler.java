@@ -1,9 +1,9 @@
 package com.codigoQR.sistemQrCode.common;
 
-import com.codigoQR.sistemQrCode.Exception.ErroCampo;
-import com.codigoQR.sistemQrCode.Exception.ErroResposta;
-import com.codigoQR.sistemQrCode.Exception.ResourceNotFoundException;
-import com.codigoQR.sistemQrCode.Exception.ValidacaoException;
+import com.codigoQR.sistemQrCode.exception.ErroCampo;
+import com.codigoQR.sistemQrCode.exception.ErroResposta;
+import com.codigoQR.sistemQrCode.exception.ResourceNotFoundException;
+import com.codigoQR.sistemQrCode.exception.ValidacaoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
