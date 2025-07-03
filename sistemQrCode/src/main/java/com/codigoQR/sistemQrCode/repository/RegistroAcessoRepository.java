@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface RegistroAcessoRepository extends JpaRepository <RegistroAcessoEntity, Integer> {
-    @Query("SELECT r " +
-            "FROM RegistroAcessoEntity r" +
-            " WHERE r.funcionario.cpf = :cpf" +
-            " ORDER BY r.dataHoraAcesso DESC")
-    Optional<RegistroAcessoEntity> findUltimoAcesso(String cpf);
-}
+    @Query(value = "SELECT * " +
+            "FROM registro_acesso_entity " +
+            "WHERE funcionario_id = :id " +
+            "ORDER BY data_hora_acesso " +
+            "DESC LIMIT 1", nativeQuery = true)
+    Optional<RegistroAcessoEntity> findUltimoAcesso(Integer id);}
