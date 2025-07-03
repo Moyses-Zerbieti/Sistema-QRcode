@@ -12,7 +12,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("funcionario")
-public class FuncionarioController {
+public class FuncionarioController implements GenericController{
     private ServiceCadastro service;
     public FuncionarioController(ServiceCadastro service) {
         this.service = service;
@@ -21,11 +21,7 @@ public class FuncionarioController {
     @PostMapping
     public ResponseEntity<?> salvar(@Valid @RequestBody FuncionarioRequest funcionarioRequest) {
         FuncionarioEntity salvo = service.salvar(funcionarioRequest);
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(salvo.getId())
-                .toUri();
+        URI location = gerarHeaderLocation(salvo.getId());
         return ResponseEntity
                 .created(location)
                 .body("Funcionário cadastrado com sucesso! QR Code enviado para " + salvo.getEmailCorporativo());
