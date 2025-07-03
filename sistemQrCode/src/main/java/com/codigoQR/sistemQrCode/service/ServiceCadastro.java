@@ -1,7 +1,7 @@
 package com.codigoQR.sistemQrCode.service;
 
-import com.codigoQR.sistemQrCode.Exception.ResourceNotFoundException;
-import com.codigoQR.sistemQrCode.Exception.ValidacaoException;
+import com.codigoQR.sistemQrCode.exception.ResourceNotFoundException;
+import com.codigoQR.sistemQrCode.exception.ValidacaoException;
 import com.codigoQR.sistemQrCode.dto.FuncionarioRequest;
 import com.codigoQR.sistemQrCode.model.FuncionarioEntity;
 import com.codigoQR.sistemQrCode.repository.FuncionariosRepository;
@@ -47,13 +47,20 @@ public class ServiceCadastro {
         FuncionarioEntity salvo = repository.save(novoFuncionarioEntity);
 
         try {
-            String textoQrCode = "Funcionario ID: " + salvo.getId() + ", Nome: " + salvo.getNomeCompleto();
+            String textoQrCode = """
+                    Nome: %s
+                    Cargo: %s
+                    Setor: %s
+                    """.formatted(
+                    salvo.getNomeCompleto(),
+                    salvo.getCargo(),
+                    salvo.getSetor()
+                    );
             byte[] imagemQrCode = qrCodeGenerator.gerarQrCode(textoQrCode);
             emailFuncionario.enviarQrCodePorEmail(salvo.getEmailCorporativo(), imagemQrCode);
         } catch (Exception e) {
             System.err.println("Erro ao gerar/enviar QR CODE: " + e.getMessage());
         }
-
         return salvo;
     }
 
