@@ -1,4 +1,4 @@
-package com.codigoQR.sistemQrCode.Exception;
+package com.codigoQR.sistemQrCode.exception;
 
 import java.util.List;
 
