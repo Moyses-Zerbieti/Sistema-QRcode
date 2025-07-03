@@ -1,4 +1,4 @@
-package com.codigoQR.sistemQrCode.Exception;
+package com.codigoQR.sistemQrCode.exception;
 
 public class ResourceNotFoundException extends RuntimeException{
     public ResourceNotFoundException(String message){
