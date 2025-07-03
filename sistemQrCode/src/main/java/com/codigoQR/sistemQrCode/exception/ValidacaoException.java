@@ -1,4 +1,4 @@
-package com.codigoQR.sistemQrCode.Exception;
+package com.codigoQR.sistemQrCode.exception;
 
 public class ValidacaoException extends RuntimeException{
     public ValidacaoException (String mensagem){
