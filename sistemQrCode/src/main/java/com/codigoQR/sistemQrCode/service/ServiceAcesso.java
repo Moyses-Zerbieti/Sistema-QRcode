@@ -27,7 +27,7 @@ public class ServiceAcesso {
         FuncionarioEntity funcionario = funcionariosRepository.findById(idFuncionario)
                 .orElseThrow(() -> new RuntimeException("Funcionário não encontrado."));
 
-        boolean acessoNegado = registroAcessoRepository.findUltimoAcesso(funcionario.getCpf())
+        boolean acessoNegado = registroAcessoRepository.findUltimoAcesso(funcionario.getId())
                 .filter(reg -> Duration.between(reg.getDataHoraAcesso(), LocalDateTime.now())
                 .toMinutes() < 120)
                 .isPresent();
@@ -45,7 +45,7 @@ public class ServiceAcesso {
         resposta.put("setor", funcionario.getSetor());
         resposta.put("status", registroAcesso.getStatus());
         resposta.put("mensagem", acessoNegado ?
-                "Acesso negado! Aguarde pelo menos 1 hora." :
+                "Acesso negado! Aguarde o tempo mínimo para passar!." :
                 "Acesso autorizado para " + funcionario.getNomeCompleto());
         return resposta;
     }
