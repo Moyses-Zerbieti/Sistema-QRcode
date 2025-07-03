@@ -1,6 +1,6 @@
 package com.codigoQR.sistemQrCode.service;
 
-import com.codigoQR.sistemQrCode.Exception.ResourceNotFoundException;
+import com.codigoQR.sistemQrCode.exception.ResourceNotFoundException;
 import com.codigoQR.sistemQrCode.model.FuncionarioEntity;
 import com.codigoQR.sistemQrCode.repository.FuncionariosRepository;
 import org.springframework.stereotype.Component;
