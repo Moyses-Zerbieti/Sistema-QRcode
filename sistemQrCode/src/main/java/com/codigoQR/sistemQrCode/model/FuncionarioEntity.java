@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -37,6 +38,17 @@ public class FuncionarioEntity {
 
     @Column(name = "setor", length = 30,nullable = false)
     private String setor;
+
+    @OneToMany(mappedBy = "funcionario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<RegistroAcessoEntity> registroAcesso;
+
+    public List<RegistroAcessoEntity> getRegistroAcesso() {
+        return registroAcesso;
+    }
+
+    public void setRegistroAcesso(List<RegistroAcessoEntity> registroAcesso) {
+        this.registroAcesso = registroAcesso;
+    }
 
     public Integer getId() {
         return id;
