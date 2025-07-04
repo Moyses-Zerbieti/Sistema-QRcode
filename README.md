@@ -104,10 +104,9 @@ Utilizei o pgAdmin para visualizar as tabelas, registros e monitorar o desempenh
 
 ## 📌 Próximos Passos
  ## FEATURE:
-- Ao scannear o QR code precisa retornar ID, nome, datahora, se é entrada ou saida
-- Ao scannear o QR code vai armazenar as informações em uma tabela de historico
 - Criar endpoint PATCH para atualização parcial dos dados de funcionários (permitindo alterar apenas campos editáveis como e-mail corporativo, cargo e setor, por exemplo).
-- Trava de segurança do scanner, entre uma batida e outra do mesmo ID só pode acontecer depois de 3 minutos
+- Registrar o tempo restante para novo acesso na resposta.
+- Enviar e-mail ou notificação em tentativas repetidas.
                 
 
 
