@@ -6,6 +6,7 @@ import com.codigoQR.sistemQrCode.exception.ResourceNotFoundException;
 import com.codigoQR.sistemQrCode.exception.ValidacaoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -61,5 +62,14 @@ public class GlobalExceptionHandler {
                 "Erro de validação",
                 listaErros
                 );
+    }
+
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ExceptionHandler(AuthorizationDeniedException.class)
+    public  ErroResposta handleAcessDeniedException(AuthorizationDeniedException e){
+        return new ErroResposta(
+                HttpStatus.FORBIDDEN.value(),
+                "Voce não tem permissão para executar essa tarefa",
+                List.of());
     }
 }
