@@ -1,34 +1,39 @@
 package com.codigoQR.sistemQrCode.service;
 
+import com.codigoQR.sistemQrCode.dto.AtualizacaoDTO;
+import com.codigoQR.sistemQrCode.dto.FuncionarioResponseDTO;
 import com.codigoQR.sistemQrCode.exception.ResourceNotFoundException;
-import com.codigoQR.sistemQrCode.exception.ValidacaoException;
 import com.codigoQR.sistemQrCode.dto.FuncionarioRequest;
 import com.codigoQR.sistemQrCode.model.FuncionarioEntity;
+import com.codigoQR.sistemQrCode.model.Usuario;
 import com.codigoQR.sistemQrCode.repository.FuncionariosRepository;
-import jakarta.validation.constraints.NotNull;
+import com.codigoQR.sistemQrCode.security.SecurityService;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
 @Service
-public class ServiceCadastro {
+public class ServiceFuncionarios {
 
     private FuncionariosRepository repository;
     private CadastroValidacao validacao;
     private EmailFuncionario emailFuncionario;
     private AtualizarDadosValidacao atualizarDadosValidacao;
     private QrCodeGenerator qrCodeGenerator;
+    private SecurityService securityService;
 
-    public ServiceCadastro(FuncionariosRepository repository,
-                           CadastroValidacao validacao,
-                           EmailFuncionario emailFuncionario,
-                           AtualizarDadosValidacao atualizarDadosValidacao,
-                           QrCodeGenerator qrCodeGenerator) {
+    public ServiceFuncionarios(FuncionariosRepository repository,
+                               CadastroValidacao validacao,
+                               EmailFuncionario emailFuncionario,
+                               AtualizarDadosValidacao atualizarDadosValidacao,
+                               QrCodeGenerator qrCodeGenerator,
+                               SecurityService securityService) {
         this.repository = repository;
         this.validacao = validacao;
         this.emailFuncionario = emailFuncionario;
         this.atualizarDadosValidacao = atualizarDadosValidacao;
         this.qrCodeGenerator = qrCodeGenerator;
+        this.securityService = securityService;
     }
 
     public FuncionarioEntity salvar(FuncionarioRequest dto) {
@@ -43,7 +48,8 @@ public class ServiceCadastro {
         novoFuncionarioEntity.setMatricula(UUID.randomUUID());
 
         validacao.validarFuncionario(novoFuncionarioEntity);
-
+        Usuario usuario = securityService.obterUsuarioLogado();
+        novoFuncionarioEntity.setIdUsuario(usuario);
         FuncionarioEntity salvo = repository.save(novoFuncionarioEntity);
 
         try {
@@ -64,30 +70,33 @@ public class ServiceCadastro {
         return salvo;
     }
 
-    public FuncionarioEntity consultaId(Integer id) {
-        return atualizarDadosValidacao.buscarOuFalhar(id);
+    public FuncionarioResponseDTO consultaId(Integer id) {
+        FuncionarioEntity entity = atualizarDadosValidacao.buscarOuFalhar(id);
+
+        return new FuncionarioResponseDTO(
+                entity.getId(),
+                entity.getNomeCompleto(),
+                entity.getCpf(),
+                entity.getDataNascimento(),
+                entity.getMatricula(),
+                entity.getEmailCorporativo(),
+                entity.getCargo(),
+                entity.getSetor(),
+                entity.getDataCadastro(),
+                entity.getDataAtualizacao());
     }
 
-    public FuncionarioEntity atualizarInformacoes(@NotNull FuncionarioEntity funcionarioEntity){
-        atualizarDadosValidacao.validarExisteFuncionario(funcionarioEntity.getId());
+    public FuncionarioEntity atualizarInformacoes(Integer id, AtualizacaoDTO dto){
+        atualizarDadosValidacao.validarExisteFuncionario(id);
 
-        FuncionarioEntity funcionarioAtual = repository.findById(funcionarioEntity.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Funcionário com id " + funcionarioEntity.getId() + " não encontrado"));
+        FuncionarioEntity funcionario = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Funcionário com id " + id + " não encontrado"));
 
-        if (!funcionarioAtual.getCpf().equals(funcionarioEntity.getCpf())) {
-            throw new ValidacaoException("Não é permitido alterar o CPF.");
-        }
+        funcionario.setNomeCompleto(dto.getNomeCompleto());
+        funcionario.setCargo(dto.getCargo());
+        funcionario.setSetor(dto.getSetor());
 
-        if (!funcionarioAtual.getEmailCorporativo().equals(funcionarioEntity.getEmailCorporativo())) {
-            throw new ValidacaoException("Não é permitido alterar o Email corporativo.");
-        }
-
-        funcionarioAtual.setNomeCompleto(funcionarioEntity.getNomeCompleto());
-        funcionarioAtual.setCargo(funcionarioEntity.getCargo());
-        funcionarioAtual.setSetor(funcionarioEntity.getSetor());
-        funcionarioAtual.setDataNascimento(funcionarioEntity.getDataNascimento());
-
-        return repository.save(funcionarioAtual);
+        return repository.save(funcionario);
     }
 
     public void deletarFuncionario(Integer id) {
