@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 
+
 public class FuncionarioRequest {
 
     @NotBlank(message = "O nome completo é obrigatório.")
