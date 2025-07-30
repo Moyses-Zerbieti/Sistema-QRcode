@@ -2,18 +2,22 @@ package com.codigoQR.sistemQrCode.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Table (name = "funcionarios", schema = "public")
+@EntityListeners(AuditingEntityListener.class)
 public class FuncionarioEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Integer id;
 
     @Column(name = "nome_completo", length = 100, nullable = false)
@@ -35,12 +39,33 @@ public class FuncionarioEntity {
     @Column(name = "cargo", length = 20, nullable = false)
     private String cargo;
 
-
     @Column(name = "setor", length = 30,nullable = false)
     private String setor;
 
     @OneToMany(mappedBy = "funcionario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<RegistroAcessoEntity> registroAcesso;
+
+    @ManyToOne
+    @JoinColumn(name= "id_usuario")
+    private Usuario idUsuario;
+
+    @CreatedDate
+    @Column(name = "data_cadastro")
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    private LocalDateTime dataCadastro;
+
+    @LastModifiedDate
+    @Column(name = "data_atualizacao")
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    private LocalDateTime dataAtualizacao;
+
+    public Usuario getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Usuario idUsuario) {
+        this.idUsuario = idUsuario;
+    }
 
     public List<RegistroAcessoEntity> getRegistroAcesso() {
         return registroAcesso;
@@ -112,5 +137,13 @@ public class FuncionarioEntity {
 
     public void setSetor(String setor) {
         this.setor = setor;
+    }
+
+    public LocalDateTime getDataCadastro() {
+        return dataCadastro;
+    }
+
+    public LocalDateTime getDataAtualizacao() {
+        return dataAtualizacao;
     }
 }
