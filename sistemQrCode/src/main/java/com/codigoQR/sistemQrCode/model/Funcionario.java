@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,7 +13,7 @@ import java.util.UUID;
 @Entity
 @Table (name = "funcionarios", schema = "public")
 @EntityListeners(AuditingEntityListener.class)
-public class FuncionarioEntity {
+public class Funcionario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,14 +35,16 @@ public class FuncionarioEntity {
     @Column(name = "email_corporativo",length = 100,nullable = false,unique = true)
     private String emailCorporativo;
 
-    @Column(name = "cargo", length = 20, nullable = false)
-    private String cargo;
+    @ManyToOne
+    @JoinColumn(name = "id_cargo")
+    private Cargo cargo;
 
-    @Column(name = "setor", length = 30,nullable = false)
-    private String setor;
+    @ManyToOne
+    @JoinColumn(name = "id_setor")
+    private Setor setor;
 
     @OneToMany(mappedBy = "funcionario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<RegistroAcessoEntity> registroAcesso;
+    private List<RegistroAcesso> registroAcesso;
 
     @ManyToOne
     @JoinColumn(name= "id_usuario")
@@ -67,11 +68,11 @@ public class FuncionarioEntity {
         this.idUsuario = idUsuario;
     }
 
-    public List<RegistroAcessoEntity> getRegistroAcesso() {
+    public List<RegistroAcesso> getRegistroAcesso() {
         return registroAcesso;
     }
 
-    public void setRegistroAcesso(List<RegistroAcessoEntity> registroAcesso) {
+    public void setRegistroAcesso(List<RegistroAcesso> registroAcesso) {
         this.registroAcesso = registroAcesso;
     }
 
@@ -123,27 +124,27 @@ public class FuncionarioEntity {
         this.emailCorporativo = emailCorporativo;
     }
 
-    public String getCargo() {
-        return cargo;
-    }
-
-    public void setCargo(String cargo) {
-        this.cargo = cargo;
-    }
-
-    public String getSetor() {
-        return setor;
-    }
-
-    public void setSetor(String setor) {
-        this.setor = setor;
-    }
-
     public LocalDateTime getDataCadastro() {
         return dataCadastro;
     }
 
     public LocalDateTime getDataAtualizacao() {
         return dataAtualizacao;
+    }
+
+    public Cargo getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(Cargo cargo) {
+        this.cargo = cargo;
+    }
+
+    public Setor getSetor() {
+        return setor;
+    }
+
+    public void setSetor(Setor setor) {
+        this.setor = setor;
     }
 }
