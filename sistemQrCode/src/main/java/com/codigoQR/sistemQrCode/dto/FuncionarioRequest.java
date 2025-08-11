@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-
 import java.time.LocalDate;
 
 
@@ -20,15 +19,15 @@ public class FuncionarioRequest {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataNascimento;
 
-    @NotBlank(message = "O email corporativo é obrigatório.")
+    @NotNull(message = "O email corporativo é obrigatório.")
     @Email(message = "O email corporativo deve ser válido.")
     private String emailCorporativo;
 
-    @NotBlank(message = "O cargo é obrigatório.")
-    private String cargo;
+    @NotNull(message = "O cargoId é obrigatório.")
+    private Integer cargoId;
 
-    @NotNull(message = "O setor é obrigatório.")
-    private String setor;
+    @NotNull(message = "O setorId é obrigatório.")
+    private Integer setorId;
 
     public String getNomeCompleto() {
         return nomeCompleto;
@@ -62,20 +61,19 @@ public class FuncionarioRequest {
         this.emailCorporativo = emailCorporativo;
     }
 
-    public String getCargo() {
-        return cargo;
+    public Integer getCargoId() {
+        return cargoId;
     }
 
-    public void setCargo(String cargo) {
-        this.cargo = cargo;
+    public void setCargoId(Integer cargoId) {
+        this.cargoId = cargoId;
     }
 
-    public String getSetor() {
-        return setor;
+    public Integer getSetorId() {
+        return setorId;
     }
 
-    public void setSetor(String setor) {
-        this.setor = setor;
+    public void setSetorId(Integer setorId) {
+        this.setorId = setorId;
     }
 }
-
