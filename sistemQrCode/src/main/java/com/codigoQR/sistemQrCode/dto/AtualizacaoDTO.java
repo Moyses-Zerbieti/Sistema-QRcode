@@ -5,9 +5,9 @@ public class AtualizacaoDTO {
 
     private String nomeCompleto;
 
-    private String cargo;
+    private Integer cargoId;
 
-    private String setor;
+    private Integer setorId;
 
     public String getNomeCompleto() {
         return nomeCompleto;
@@ -17,19 +17,19 @@ public class AtualizacaoDTO {
         this.nomeCompleto = nomeCompleto;
     }
 
-    public String getCargo() {
-        return cargo;
+    public Integer getCargoId() {
+        return cargoId;
     }
 
-    public void setCargo(String cargo) {
-        this.cargo = cargo;
+    public void setCargoId(Integer cargoId) {
+        this.cargoId = cargoId;
     }
 
-    public String getSetor() {
-        return setor;
+    public Integer getSetorId() {
+        return setorId;
     }
 
-    public void setSetor(String setor) {
-        this.setor = setor;
+    public void setSetorId(Integer setorId) {
+        this.setorId = setorId;
     }
 }
