@@ -1,7 +1,6 @@
 package com.codigoQR.sistemQrCode.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -60,28 +59,72 @@ public class FuncionarioResponseDTO {
     public String getNomeCompleto() {
         return nomeCompleto;
     }
+
+    public void setNomeCompleto(String nomeCompleto) {
+        this.nomeCompleto = nomeCompleto;
+    }
+
     public String getCpf() {
         return cpf;
     }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
     public LocalDate getDataNascimento() {
         return dataNascimento;
     }
+
+    public void setDataNascimento(LocalDate dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
     public UUID getMatricula() {
         return matricula;
     }
+
+    public void setMatricula(UUID matricula) {
+        this.matricula = matricula;
+    }
+
     public String getEmailCorporativo() {
         return emailCorporativo;
     }
+
+    public void setEmailCorporativo(String emailCorporativo) {
+        this.emailCorporativo = emailCorporativo;
+    }
+
     public String getCargo() {
         return cargo;
     }
+
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
+    }
+
     public String getSetor() {
         return setor;
     }
+
+    public void setSetor(String setor) {
+        this.setor = setor;
+    }
+
     public LocalDateTime getDataCadastro() {
         return dataCadastro;
     }
+
+    public void setDataCadastro(LocalDateTime dataCadastro) {
+        this.dataCadastro = dataCadastro;
+    }
+
     public LocalDateTime getDataAtualizacao() {
         return dataAtualizacao;
+    }
+
+    public void setDataAtualizacao(LocalDateTime dataAtualizacao) {
+        this.dataAtualizacao = dataAtualizacao;
     }
 }
