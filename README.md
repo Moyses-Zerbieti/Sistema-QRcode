@@ -22,7 +22,7 @@ O projeto está em desenvolvimento contínuo, com diversas melhorias sendo imple
 
 ## 🎯 Objetivos Principais
 
-✅ Cadastro de funcionários (nome completo, CPF, e-mail corporativo, data de nascimento, cargo e setor de trabalho).
+✅ Cadastro de funcionários (nome completo, CPF, e-mail corporativo, data de nascimento, cargoId e setorId de trabalho).
 
 ✅ Geração automática de QR Code exclusivo para cada funcionário.
 
@@ -104,7 +104,7 @@ Utilizei o pgAdmin para visualizar as tabelas, registros e monitorar o desempenh
 
 ## 📌 Próximos Passos
  ## FEATURE:
-- Criar endpoint PATCH para atualização parcial dos dados de funcionários (permitindo alterar apenas campos editáveis como e-mail corporativo, cargo e setor, por exemplo).
+- Criar endpoint PATCH para atualização parcial dos dados de funcionários (permitindo alterar apenas campos editáveis como e-mail corporativo, cargoId e setorId, por exemplo).
 - Registrar o tempo restante para novo acesso na resposta.
 - Enviar e-mail ou notificação em tentativas repetidas.
                 

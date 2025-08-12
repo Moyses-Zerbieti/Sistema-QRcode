@@ -1,7 +1,6 @@
 package com.codigoQR.sistemQrCode.controller;
 
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import java.net.URI;
 
 public interface GenericController {
