@@ -1,7 +1,5 @@
 package com.codigoQR.sistemQrCode.config;
 
-import com.codigoQR.sistemQrCode.security.CustomDetailsService;
-import com.codigoQR.sistemQrCode.service.UsuarioService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -10,7 +8,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -25,7 +23,8 @@ public class SecurityConfiguration {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> {
-                    authorize.requestMatchers(HttpMethod.POST,"usuario", "/usuario/**").permitAll();
+//                   authorize.requestMatchers(HttpMethod.POST,"usuario", "/usuario/**").permitAll();
+// permitAll utilizado apenas para cadastrar do ADMIN no sistema logo após ele foi desativado para manter a segurança da API
                     authorize.anyRequest().authenticated();
                 })
                 .httpBasic(Customizer.withDefaults())
@@ -38,7 +37,7 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public UserDetailsService userDetailsService(UsuarioService usuarioService){
-        return new CustomDetailsService(usuarioService);
+    public GrantedAuthorityDefaults grantedAuthorityDefaults(){
+        return new GrantedAuthorityDefaults("");
     }
 }
