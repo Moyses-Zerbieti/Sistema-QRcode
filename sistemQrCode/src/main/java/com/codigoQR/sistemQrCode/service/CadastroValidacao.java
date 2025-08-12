@@ -1,19 +1,19 @@
 package com.codigoQR.sistemQrCode.service;
 
 import com.codigoQR.sistemQrCode.exception.ValidacaoException;
-import com.codigoQR.sistemQrCode.model.FuncionarioEntity;
-import com.codigoQR.sistemQrCode.repository.FuncionariosRepository;
+import com.codigoQR.sistemQrCode.model.Funcionario;
+import com.codigoQR.sistemQrCode.repository.FuncionarioRepository;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CadastroValidacao {
 
-    private FuncionariosRepository repository;
+    private FuncionarioRepository repository;
 
-    public CadastroValidacao(FuncionariosRepository repository){
+    public CadastroValidacao(FuncionarioRepository repository){
         this.repository = repository;
     }
-    public void validarFuncionario(FuncionarioEntity funcionario){
+    public void validarFuncionario(Funcionario funcionario){
         if (repository.existsByCpf(funcionario.getCpf())) {
             throw new ValidacaoException("CPF já cadastrado.");
         }
