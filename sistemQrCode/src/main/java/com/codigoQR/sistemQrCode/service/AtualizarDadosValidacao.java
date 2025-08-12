@@ -1,16 +1,16 @@
 package com.codigoQR.sistemQrCode.service;
 
 import com.codigoQR.sistemQrCode.exception.ResourceNotFoundException;
-import com.codigoQR.sistemQrCode.model.FuncionarioEntity;
-import com.codigoQR.sistemQrCode.repository.FuncionariosRepository;
+import com.codigoQR.sistemQrCode.model.Funcionario;
+import com.codigoQR.sistemQrCode.repository.FuncionarioRepository;
 import org.springframework.stereotype.Component;
 
 @Component
 public class AtualizarDadosValidacao {
 
-    private FuncionariosRepository repository;
+    private FuncionarioRepository repository;
 
-    public AtualizarDadosValidacao(FuncionariosRepository repository) {
+    public AtualizarDadosValidacao(FuncionarioRepository repository) {
         this.repository = repository;
     }
 
@@ -20,12 +20,12 @@ public class AtualizarDadosValidacao {
         }
     }
 
-    public void validarDuplicidade(FuncionarioEntity funcionarioEntity){
-        FuncionarioEntity existentePorCpf = repository.findByCpf(funcionarioEntity.getCpf());
-        FuncionarioEntity existentePorEmail = repository.findByEmailCorporativo(funcionarioEntity.getEmailCorporativo());
+    public void validarDuplicidade(Funcionario funcionario){
+        Funcionario existentePorCpf = repository.findByCpf(funcionario.getCpf());
+        Funcionario existentePorEmail = repository.findByEmailCorporativo(funcionario.getEmailCorporativo());
 
-        boolean cpfDuplicado = existentePorCpf != null && !existentePorCpf.getId().equals(funcionarioEntity.getId());
-        boolean emailDuplicado = existentePorEmail != null && !existentePorEmail.getId().equals(funcionarioEntity.getId());
+        boolean cpfDuplicado = existentePorCpf != null && !existentePorCpf.getId().equals(funcionario.getId());
+        boolean emailDuplicado = existentePorEmail != null && !existentePorEmail.getId().equals(funcionario.getId());
 
 
         if (cpfDuplicado || emailDuplicado){
@@ -33,7 +33,7 @@ public class AtualizarDadosValidacao {
         }
     }
 
-    public FuncionarioEntity buscarOuFalhar(Integer id){
+    public Funcionario buscarOuFalhar(Integer id){
         return repository.findById(id)
                 .orElseThrow(() ->new ResourceNotFoundException("Funcionário com id "  + id + " não encontrado."));
 
