@@ -12,11 +12,11 @@ import java.util.Map;
 import java.util.Optional;
 
 @Service
-public class ServiceAcesso {
+public class AcessoService {
     private final FuncionarioRepository funcionarioRepository;
     private final RegistroAcessoRepository registroAcessoRepository;
 
-    public ServiceAcesso(FuncionarioRepository funcionarioRepository, RegistroAcessoRepository registroAcessoRepository) {
+    public AcessoService(FuncionarioRepository funcionarioRepository, RegistroAcessoRepository registroAcessoRepository) {
         this.funcionarioRepository = funcionarioRepository;
         this.registroAcessoRepository = registroAcessoRepository;
     }
