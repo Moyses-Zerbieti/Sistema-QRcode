@@ -1,10 +1,12 @@
 package com.codigoQR.sistemQrCode.controller;
 
 import com.codigoQR.sistemQrCode.dto.AtualizacaoDTO;
+import com.codigoQR.sistemQrCode.dto.ConsultaPortariaDTO;
 import com.codigoQR.sistemQrCode.dto.FuncionarioRequest;
 import com.codigoQR.sistemQrCode.dto.FuncionarioResponseDTO;
+import com.codigoQR.sistemQrCode.genericController.GenericControllers;
 import com.codigoQR.sistemQrCode.model.Funcionario;
-import com.codigoQR.sistemQrCode.service.ServiceFuncionario;
+import com.codigoQR.sistemQrCode.service.FuncionarioService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,9 +15,9 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("funcionario")
-public class FuncionarioController implements GenericController{
-    private ServiceFuncionario service;
-    public FuncionarioController(ServiceFuncionario service) {
+public class FuncionarioController implements GenericControllers {
+    private FuncionarioService service;
+    public FuncionarioController(FuncionarioService service) {
         this.service = service;
     }
 
@@ -63,5 +65,11 @@ public class FuncionarioController implements GenericController{
     public ResponseEntity<?> deletarFuncionario(@PathVariable("id") Integer id){
             service.deletarFuncionario(id);
             return ResponseEntity.ok("Funcionário com id " + id + " foi deletado com sucesso.");
+    }
+
+    @GetMapping("/cpf/{cpf:.+}")
+    @PreAuthorize("hasAnyRole('ADMIN','STAFF','USER')")
+        public ConsultaPortariaDTO consultaPortaria (@PathVariable("cpf") String cpf){
+         return  service.consultaPortariaCPF(cpf);
     }
 }
