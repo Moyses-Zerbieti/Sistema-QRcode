@@ -1,19 +1,18 @@
 package com.codigoQR.sistemQrCode.controller;
 
 import com.codigoQR.sistemQrCode.exception.ResourceNotFoundException;
+import com.codigoQR.sistemQrCode.genericController.GenericControllers;
 import com.codigoQR.sistemQrCode.model.Setor;
 import com.codigoQR.sistemQrCode.service.SetorService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("setor")
-public class SetorController {
+public class SetorController implements GenericControllers {
 
     private SetorService setorService;
 
@@ -25,11 +24,7 @@ public class SetorController {
     @PreAuthorize("hasAnyRole('ADMIN','STAFF')")
     public ResponseEntity<Object> salvar(@RequestBody Setor setor){
         Setor salvarSetor = setorService.salvarSetor(setor);
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("{id}")
-                .buildAndExpand(salvarSetor.getId())
-                .toUri();
+        URI location = gerarHeaderLocation(salvarSetor.getId());
         return ResponseEntity.created(location).build();
 
     }
