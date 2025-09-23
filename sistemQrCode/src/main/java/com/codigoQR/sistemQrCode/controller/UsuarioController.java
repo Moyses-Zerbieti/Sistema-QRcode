@@ -1,5 +1,6 @@
 package com.codigoQR.sistemQrCode.controller;
 
+import com.codigoQR.sistemQrCode.genericController.GenericControllerUsuario;
 import com.codigoQR.sistemQrCode.model.Usuario;
 import com.codigoQR.sistemQrCode.service.UsuarioService;
 import org.springframework.http.HttpStatus;
@@ -9,7 +10,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("usuario")
-public class UsuarioController implements GenericControllerUSER{
+public class UsuarioController implements GenericControllerUsuario {
 
     private UsuarioService service;
 
@@ -22,6 +23,6 @@ public class UsuarioController implements GenericControllerUSER{
     @PreAuthorize("hasRole('ADMIN')")
     public void salvar(@RequestBody Usuario usuario){
         service.salvar(usuario);
-        URI location = headerLocationUser(usuario.getId());
+        URI location = headerLocationUsuario(usuario.getId());
     }
 }
