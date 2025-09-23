@@ -1,18 +1,18 @@
 package com.codigoQR.sistemQrCode.controller;
 
 import com.codigoQR.sistemQrCode.exception.ResourceNotFoundException;
+import com.codigoQR.sistemQrCode.genericController.GenericControllers;
 import com.codigoQR.sistemQrCode.model.Cargo;
 import com.codigoQR.sistemQrCode.service.CargoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 import java.net.URI;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("cargo")
-public class CargoController {
+public class CargoController implements GenericControllers {
     private CargoService cargoService;
 
     public CargoController (CargoService cargoService){
@@ -23,11 +23,7 @@ public class CargoController {
     @PreAuthorize("hasAnyRole('ADMIN','STAFF')")
     public ResponseEntity<Object> salvar(@RequestBody Cargo cargo){
         Cargo cargoSalvo = cargoService.salvarCargo(cargo);
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("{id}")
-                .buildAndExpand(cargoSalvo.getId())
-                .toUri();
+        URI location = gerarHeaderLocation(cargoSalvo.getId());
         return ResponseEntity.created(location).build();
     }
 
