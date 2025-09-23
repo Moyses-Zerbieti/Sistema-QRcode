@@ -1,9 +1,9 @@
-package com.codigoQR.sistemQrCode.controller;
+package com.codigoQR.sistemQrCode.genericController;
 
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 
-public interface GenericController {
+public interface GenericControllers {
 
     default URI gerarHeaderLocation(Integer id){
         return ServletUriComponentsBuilder
