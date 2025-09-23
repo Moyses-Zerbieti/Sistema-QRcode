@@ -2,7 +2,6 @@ package com.codigoQR.sistemQrCode.model;
 
 import io.hypersistence.utils.hibernate.type.array.ListArrayType;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import org.hibernate.annotations.Type;
 
 import java.util.List;
