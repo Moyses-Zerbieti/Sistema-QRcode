@@ -1,5 +1,6 @@
 package com.codigoQR.sistemQrCode.dto;
 
+import com.codigoQR.sistemQrCode.model.Usuario;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -28,6 +29,9 @@ public class FuncionarioRequest {
 
     @NotNull(message = "O setorId é obrigatório.")
     private Integer setorId;
+
+    @NotBlank
+    private Usuario idUsuario;
 
     public String getNomeCompleto() {
         return nomeCompleto;
@@ -64,7 +68,6 @@ public class FuncionarioRequest {
     public Integer getCargoId() {
         return cargoId;
     }
-
     public void setCargoId(Integer cargoId) {
         this.cargoId = cargoId;
     }
@@ -75,5 +78,13 @@ public class FuncionarioRequest {
 
     public void setSetorId(Integer setorId) {
         this.setorId = setorId;
+    }
+
+    public Usuario getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Usuario idUsuario) {
+        this.idUsuario = idUsuario;
     }
 }
