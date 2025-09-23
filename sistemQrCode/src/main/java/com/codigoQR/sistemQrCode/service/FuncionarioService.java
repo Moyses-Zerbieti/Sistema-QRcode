@@ -1,6 +1,7 @@
 package com.codigoQR.sistemQrCode.service;
 
 import com.codigoQR.sistemQrCode.dto.AtualizacaoDTO;
+import com.codigoQR.sistemQrCode.dto.ConsultaPortariaDTO;
 import com.codigoQR.sistemQrCode.dto.FuncionarioResponseDTO;
 import com.codigoQR.sistemQrCode.exception.ResourceNotFoundException;
 import com.codigoQR.sistemQrCode.dto.FuncionarioRequest;
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.UUID;
 
 @Service
-public class ServiceFuncionario {
+public class FuncionarioService {
 
     private FuncionarioRepository repository;
     private CadastroValidacao validacao;
@@ -27,7 +28,7 @@ public class ServiceFuncionario {
     private CargoRepository cargoRepository;
     private SetorRepository setorRepository;
 
-    public ServiceFuncionario(FuncionarioRepository repository,
+    public FuncionarioService(FuncionarioRepository repository,
                               CadastroValidacao validacao,
                               EmailFuncionario emailFuncionario,
                               AtualizarDadosValidacao atualizarDadosValidacao,
@@ -120,7 +121,10 @@ public class ServiceFuncionario {
                         .orElseThrow(()-> new RuntimeException("Setor não encontrado"));
         funcionario.setSetor(setor);
 
+        Usuario usuario = securityService.obterUsuarioLogado();
+        funcionario.setIdUsuario(usuario);;
         return repository.save(funcionario);
+
     }
 
     public void deletarFuncionario(Integer id) {
@@ -129,5 +133,19 @@ public class ServiceFuncionario {
         }
         Usuario usuario = securityService.obterUsuarioLogado();
         repository.deleteById(id);
+    }
+
+    public ConsultaPortariaDTO consultaPortariaCPF(String cpf){
+        Funcionario entity = repository.findByCpf(cpf);
+        if (entity == null){
+            throw new ResourceNotFoundException(
+                    "Funcionário com CPF: " + cpf + " não encontrado");
+        }
+
+        return new
+                ConsultaPortariaDTO(
+                        entity.getNomeCompleto(),
+                        entity.getCpf(),
+                        entity.getDataCadastro());
     }
 }
