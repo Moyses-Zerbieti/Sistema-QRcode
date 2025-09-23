@@ -18,10 +18,10 @@ public class FuncionarioResponseDTO {
     private String cargo;
     private String setor;
 
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime dataCadastro;
 
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime dataAtualizacao;
 
 
