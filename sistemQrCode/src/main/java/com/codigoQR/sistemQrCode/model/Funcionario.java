@@ -140,6 +140,14 @@ public class Funcionario {
         this.cargo = cargo;
     }
 
+    public void setDataCadastro(LocalDateTime dataCadastro) {
+        this.dataCadastro = dataCadastro;
+    }
+
+    public void setDataAtualizacao(LocalDateTime dataAtualizacao) {
+        this.dataAtualizacao = dataAtualizacao;
+    }
+
     public Setor getSetor() {
         return setor;
     }
