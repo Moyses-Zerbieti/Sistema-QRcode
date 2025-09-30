@@ -1,6 +1,7 @@
 package com.codigoQR.sistemQrCode.serviceTest;
 
 import com.codigoQR.sistemQrCode.dto.AtualizacaoDTO;
+import com.codigoQR.sistemQrCode.dto.ConsultaPortariaDTO;
 import com.codigoQR.sistemQrCode.dto.FuncionarioRequest;
 import com.codigoQR.sistemQrCode.dto.FuncionarioResponseDTO;
 import com.codigoQR.sistemQrCode.exception.ResourceNotFoundException;
@@ -184,11 +185,82 @@ public class FuncionarioServiceTest {
         when(funcionarioRepository.save(any(Funcionario.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
         Funcionario retorno = funcionarioService.atualizarInformacoes(1,dto);
+
         assertNotNull(entity); assertEquals("Moyses Martins", retorno.getNomeCompleto());
         assertEquals(cargoDto,retorno.getCargo());
         assertEquals(setorDto, retorno.getSetor()); verify(cargoRepository,times(1)).findById(dto.getCargoId());
+
         verify(setorRepository,times(1)).findById(dto.getSetorId());
+        verify(cargoRepository,times(1)).findById(dto.getCargoId());
         verify(funcionarioRepository,times(1)).findById(1);
         verify(funcionarioRepository,times(1)).save(any(Funcionario.class));
+    }
+
+    @Test
+    void deletarFuncionarioTest(){
+
+        Funcionario dto = new Funcionario();
+        dto.setId(1);
+        dto.setNomeCompleto("Moyses Zerbieti");
+
+        when(funcionarioRepository.existsById(dto.getId())).thenReturn(true);
+
+        Usuario usuarioTest = new Usuario();
+        when(securityService.obterUsuarioLogado()).thenReturn(usuarioTest);
+
+        doNothing().when(funcionarioRepository).deleteById(dto.getId());
+
+        funcionarioService.deletarFuncionario(dto.getId());
+
+        verify(funcionarioRepository,times(1)).existsById(dto.getId());
+        verify(funcionarioRepository, times(1)).deleteById(dto.getId());
+        verify(securityService,times(1)).obterUsuarioLogado();
+    }
+
+    @Test
+    void consultaPortariaCpfTest(){
+        Cargo cargoDto = new Cargo();
+        cargoDto.setId(1);
+        cargoDto.setNomeCargo("Vendedor");
+
+        Setor setorDto = new Setor();
+        setorDto.setId(1);
+        setorDto.setNomeSetor("Comercial");
+        Usuario usuarioDto = new Usuario();
+        usuarioDto.setId(UUID.randomUUID());
+
+        Funcionario entity = new Funcionario();
+        entity.setNomeCompleto("Moyses Zerbieti");
+        entity.setCpf("000.001.100-11");
+        entity.setDataNascimento(LocalDate.of(2002,6,1));
+        entity.setMatricula(UUID.randomUUID());
+        entity.setEmailCorporativo("moyseszerbieti@gmail.com");
+        entity.setDataCadastro(LocalDateTime.now());
+        entity.setCargo(cargoDto);
+        entity.setSetor(setorDto);
+        entity.setIdUsuario(usuarioDto);
+
+        when(funcionarioRepository.findByCpf(entity.getCpf())).thenReturn(entity);
+
+        ConsultaPortariaDTO retorno = funcionarioService.consultaPortariaCPF(entity.getCpf());
+
+        assertEquals(entity.getNomeCompleto(),retorno.getNome());
+        assertEquals(entity.getCpf(), retorno.getCpf());
+        assertEquals(entity.getDataCadastro(), retorno.getDataCadastro());
+
+        verify(funcionarioRepository,times(1)).findByCpf(entity.getCpf());
+    }
+
+    @Test
+    void consultaPortariaCpfNaoEncontradoTest(){
+        Funcionario dto = new Funcionario();
+        dto.setCpf("001.100.010-10");
+
+        when(funcionarioRepository.findByCpf(dto.getCpf())).thenReturn(null);
+
+        assertThrows(ResourceNotFoundException.class, ()->
+                funcionarioService.consultaPortariaCPF(dto.getCpf()));
+
+        verify(funcionarioRepository,times(1)).findByCpf(dto.getCpf());
     }
 }
