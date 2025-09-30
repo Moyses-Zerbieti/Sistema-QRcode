@@ -101,12 +101,6 @@ O banco PostgreSQL armazena os dados de funcionários com segurança e integrida
 Utilizei o pgAdmin para visualizar as tabelas, registros e monitorar o desempenho do banco de forma gráfica.
 
 ---
-
-## 📌 Próximos Passos
- ## FEATURE:
-- Criar endpoint PATCH para atualização parcial dos dados de funcionários (permitindo alterar apenas campos editáveis como e-mail corporativo, cargoId e setorId, por exemplo).
-- Registrar o tempo restante para novo acesso na resposta.
-- Enviar e-mail ou notificação em tentativas repetidas.
                 
 
 
