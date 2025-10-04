@@ -1,5 +1,6 @@
 package com.codigoQR.sistemQrCode.service;
 
+import com.codigoQR.sistemQrCode.exception.ResourceNotFoundException;
 import com.codigoQR.sistemQrCode.model.Usuario;
 import com.codigoQR.sistemQrCode.repository.UsuarioRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,5 +27,13 @@ public class UsuarioService {
 
     public Usuario ObterPorLogin(String login){
         return usuarioRepository.findByLogin(login);
+    }
+
+    public void deletarUsuarioPorLogin(String login){
+        Usuario usuario = usuarioRepository.findByLogin(login);
+        if (usuario == null){
+            throw new ResourceNotFoundException("Usuario com login " + login + " não encontrado");
+        }
+            usuarioRepository.delete(usuario);
     }
 }
