@@ -80,11 +80,23 @@ Swagger UI (documentação interativa da API)
       └── main/ 
           └── java/ 
               └── com/codigoQR/sistemQrCode/
-                  ├── controller/  #Endpoints REST
-                  ├── dto/         #Transferência de dados
-                  ├── model/       # Entidades do sistema
-                  ├── repository/  # Interfaces JPA
-                  └── service/     # Regras de negócio</code></pre>
+                  ├─ common/             # Utilitários e classes comuns
+                  ├─ config/             # Configurações da aplicação
+                  ├─ controller/         # Endpoints REST
+                  ├─ genericController/  # Controllers genéricos
+                  ├─ dto/                # Objetos de transferência de dados
+                  ├─ exception/          # Tratamento de exceções
+                  ├─ model/              # Entidades do sistema
+                  ├─ repository/         # Interfaces JPA
+                  ├─ security/           # Configurações de segurança
+                  └─ service/            # Regras de negócio
+            └─ resources/
+               ├─ application.yml
+               └─ application-example.yml
+         └─ test/
+            └─ java/
+               └─ com/codigoQR/sistemQrCode/
+                 └─ serviceTest/        # Testes unitários dos serviços</code></pre>
 
 ---
 
