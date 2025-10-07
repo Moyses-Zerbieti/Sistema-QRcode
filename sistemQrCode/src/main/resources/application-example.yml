@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    active: dev
   application:
     name: Sistema de cadastro QRcode
   datasource:
@@ -31,3 +33,5 @@ spring:
           auth: true
           starttls:
             enable: true
+springdoc:
+  override-with-generic-response: false
