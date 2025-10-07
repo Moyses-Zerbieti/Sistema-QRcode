@@ -80,11 +80,23 @@ Swagger UI (documentação interativa da API)
       └── main/ 
           └── java/ 
               └── com/codigoQR/sistemQrCode/
-                  ├── controller/  #Endpoints REST
-                  ├── dto/         #Transferência de dados
-                  ├── model/       # Entidades do sistema
-                  ├── repository/  # Interfaces JPA
-                  └── service/     # Regras de negócio</code></pre>
+                  ├─ common/             # Utilitários e classes comuns
+                  ├─ config/             # Configurações da aplicação
+                  ├─ controller/         # Endpoints REST
+                  ├─ genericController/  # Controllers genéricos
+                  ├─ dto/                # Objetos de transferência de dados
+                  ├─ exception/          # Tratamento de exceções
+                  ├─ model/              # Entidades do sistema
+                  ├─ repository/         # Interfaces JPA
+                  ├─ security/           # Configurações de segurança
+                  └─ service/            # Regras de negócio
+            └─ resources/
+               ├─ application.yml
+               └─ application-example.yml
+         └─ test/
+            └─ java/
+               └─ com/codigoQR/sistemQrCode/
+                 └─ serviceTest/        # Testes unitários dos serviços</code></pre>
 
 ---
 
@@ -101,12 +113,6 @@ O banco PostgreSQL armazena os dados de funcionários com segurança e integrida
 Utilizei o pgAdmin para visualizar as tabelas, registros e monitorar o desempenho do banco de forma gráfica.
 
 ---
-
-## 📌 Próximos Passos
- ## FEATURE:
-- Criar endpoint PATCH para atualização parcial dos dados de funcionários (permitindo alterar apenas campos editáveis como e-mail corporativo, cargoId e setorId, por exemplo).
-- Registrar o tempo restante para novo acesso na resposta.
-- Enviar e-mail ou notificação em tentativas repetidas.
                 
 
 
