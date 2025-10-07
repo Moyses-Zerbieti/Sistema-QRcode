@@ -7,4 +7,6 @@ import java.util.UUID;
 
 public interface UsuarioRepository extends JpaRepository <Usuario,UUID>{
     Usuario findByLogin(String login);
+
+    boolean existsByLogin(String login);
 }
