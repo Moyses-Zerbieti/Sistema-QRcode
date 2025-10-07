@@ -11,13 +11,13 @@ import java.util.List;
 
 @Component
 @Profile("dev")
-public class UserDefault implements CommandLineRunner {
+public class UserTest implements CommandLineRunner {
 
     private UsuarioRepository usuarioRepository;
     private PasswordEncoder encoder;
 
-    public UserDefault(UsuarioRepository usuarioRepository,
-                       PasswordEncoder encoder){
+    public UserTest(UsuarioRepository usuarioRepository,
+                    PasswordEncoder encoder){
         this.usuarioRepository = usuarioRepository;
         this.encoder = encoder;
     }
