@@ -52,7 +52,7 @@ public class UsuarioController implements GenericControllerUsuario {
     @DeleteMapping("{login}")
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Deletar", description = "Deletar um usuário do sistema")
-    @ApiResponse(responseCode = "201", description = "Usuário deletado com sucesso")
+    @ApiResponse(responseCode = "204", description = "Usuário deletado com sucesso")
     public ResponseEntity<Void> deletarUsuarioLogin(@PathVariable String login){
         service.deletarUsuarioPorLogin(login);
         return ResponseEntity.noContent().build();
