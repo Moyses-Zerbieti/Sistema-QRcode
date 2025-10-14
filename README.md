@@ -16,7 +16,7 @@
 
 ## 🚧 Status do Projeto
 
-O projeto está em desenvolvimento contínuo, com diversas melhorias sendo implementadas, como segurança, usabilidade e documentação.
+FINALIZADO ✅
 
 ---
 
