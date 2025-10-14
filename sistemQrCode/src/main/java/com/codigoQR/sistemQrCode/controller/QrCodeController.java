@@ -17,8 +17,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("qrcode")
-@Tag(name = "Escaneamento Qr-Code",
-description = "Controlador responsável por processar o escaneamento de QR Codes")
+@Tag(name = "Escaneamento Qr-Code")
 public class QrCodeController implements GenericControllers {
     private AcessoService acessoService;
 
