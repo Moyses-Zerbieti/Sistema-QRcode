@@ -113,6 +113,46 @@ O banco PostgreSQL armazena os dados de funcionários com segurança e integrida
 Utilizei o pgAdmin para visualizar as tabelas, registros e monitorar o desempenho do banco de forma gráfica.
 
 ---
-                
+                                
+## 📘 Documentação da API — Swagger UI
 
+A aplicação Tag-ID conta com uma documentação interativa da API utilizando o Swagger UI, que permite visualizar todos os endpoints e testar suas requisições diretamente pelo navegador, de forma simples e prática.
+
+---
+
+## 🔗 Acesso ao Swagger
+
+Após iniciar o projeto localmente, acesse o Swagger UI pelo link:
+
+<code><pre>
+http://localhost:8080/swagger-ui/index.html
+</code></pre>
+
+### 💡 Caso você tenha alterado a porta padrão no arquivo application.yml, substitua 8080 pela porta configurada.
+
+---
+
+## 🧩 Dependência
+
+O Swagger foi integrado ao projeto utilizando a biblioteca Springdoc OpenAPI, já configurada no pom.xml:
+
+<dependency>
+  <groupId>org.springdoc</groupId>
+  <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+  <version>2.3.0</version>
+</dependency>
+
+---
+
+## 🔐 Usuário de Teste para o Swagger
+
+Para facilitar os testes de endpoints protegidos (como cadastro, atualização e exclusão), o projeto cria automaticamente um usuário padrão via linha de comando, chamado usuarioTest.
+
+Use as credenciais abaixo para realizar testes no Swagger:
+
+<pre><code>👤 Usuário: usuarioTest
+🔑 Senha: 1234</code></pre>
+
+
+### Esse usuário possui perfil ADMIN, permitindo o acesso completo aos endpoints disponíveis no sistema.
 
