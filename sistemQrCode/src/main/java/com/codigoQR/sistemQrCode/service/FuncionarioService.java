@@ -46,7 +46,7 @@ public class FuncionarioService {
         this.setorRepository = setorRepository;
     }
 
-    public Funcionario salvar(FuncionarioRequest dto) {
+    public FuncionarioResponseDTO salvar(FuncionarioRequest dto) {
         Funcionario novoFuncionario = new Funcionario();
 
         novoFuncionario.setNomeCompleto(dto.getNomeCompleto());
@@ -85,7 +85,19 @@ public class FuncionarioService {
         } catch (Exception e) {
             System.err.println("Erro ao gerar/enviar QR CODE: " + e.getMessage());
         }
-        return salvo;
+
+        FuncionarioResponseDTO response = new FuncionarioResponseDTO();
+        response.setId(salvo.getId());
+        response.setNomeCompleto(salvo.getNomeCompleto());
+        response.setCpf(salvo.getCpf());
+        response.setDataNascimento(salvo.getDataNascimento());
+        response.setEmailCorporativo(salvo.getEmailCorporativo());
+        response.setIdCargo(salvo.getSetor().getId());
+        response.setIdSetor(salvo.getSetor().getId());
+        response.setIdUsuario(salvo.getIdUsuario().getId());
+
+        return response;
+
     }
 
     public FuncionarioResponseDTO consultaId(Integer id) {
@@ -98,8 +110,9 @@ public class FuncionarioService {
                 entity.getDataNascimento(),
                 entity.getMatricula(),
                 entity.getEmailCorporativo(),
-                entity.getCargo().getNomeCargo(),
-                entity.getSetor().getNomeSetor(),
+                entity.getCargo().getId(),
+                entity.getSetor().getId(),
+                entity.getIdUsuario().getId(),
                 entity.getDataCadastro(),
                 entity.getDataAtualizacao());
     }
