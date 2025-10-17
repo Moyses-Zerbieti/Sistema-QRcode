@@ -36,7 +36,7 @@ public class FuncionarioController implements GenericControllers {
         @ApiResponse(responseCode = "404", description = "Cargo ou Setor não existem na base de dados do sistema para cadastrar o funcionário")
     })
     public ResponseEntity<?> salvar(@Valid @RequestBody FuncionarioRequest funcionarioRequest) {
-        Funcionario salvo = service.salvar(funcionarioRequest);
+        FuncionarioResponseDTO salvo = service.salvar(funcionarioRequest);
         URI location = gerarHeaderLocation(salvo.getId());
         return ResponseEntity
                 .created(location)
@@ -74,8 +74,9 @@ public class FuncionarioController implements GenericControllers {
                 atualizado.getDataNascimento(),
                 atualizado.getMatricula(),
                 atualizado.getEmailCorporativo(),
-                atualizado.getCargo() != null ? atualizado.getCargo().getNomeCargo() : null,
-                atualizado.getSetor() != null ? atualizado.getSetor().getNomeSetor() : null,
+                atualizado.getCargo() != null ? atualizado.getCargo().getId() : null,
+                atualizado.getSetor() != null ? atualizado.getSetor().getId() : null,
+                atualizado.getIdUsuario().getId(),
                 atualizado.getDataCadastro(),
                 atualizado.getDataAtualizacao()
         );
