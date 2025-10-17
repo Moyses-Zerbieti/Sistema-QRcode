@@ -18,7 +18,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List; import java.util.Optional;
+import java.util.Optional;
 import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -70,7 +70,6 @@ public class FuncionarioServiceTest {
         dto.setDataNascimento(LocalDate.of(2002,1,6));
         dto.setEmailCorporativo("moyseszerbieti@gmail.com");
         dto.setCargoId(cargoDto.getId()); dto.setSetorId(setorDto.getId());
-        dto.setIdUsuario(usuarioDto);
 
         Funcionario novoFuncionario = new Funcionario();
         novoFuncionario.setId(1);
@@ -82,26 +81,24 @@ public class FuncionarioServiceTest {
         novoFuncionario.setCargo(cargoDto);
         novoFuncionario.setSetor(setorDto);
         novoFuncionario.setIdUsuario(usuarioDto);
-        novoFuncionario.setRegistroAcesso(List.of(acesso));
 
         when(cargoRepository.findById(1)).thenReturn(Optional.of(cargoDto));
         when(setorRepository.findById(1)).thenReturn(Optional.of(setorDto));
         when(securityService.obterUsuarioLogado()).thenReturn(usuarioDto);
         when(funcionarioRepository.save(any(Funcionario.class))).thenReturn(novoFuncionario);
 
-        Funcionario retorno = funcionarioService.salvar(dto);
+        FuncionarioResponseDTO retorno = funcionarioService.salvar(dto);
 
         assertNotNull(retorno);
         assertEquals("Moyses Zerbieti", retorno.getNomeCompleto());
-        assertEquals("Vendedor", retorno.getCargo().getNomeCargo());
-        assertEquals("Comercial", retorno.getSetor().getNomeSetor());
-        assertEquals(1, retorno.getRegistroAcesso().size());
-        assertEquals("AUTORIZADO", retorno.getRegistroAcesso().get(0).getStatus());
+        assertEquals(cargoDto.getId(), retorno.getIdCargo());
+        assertEquals(setorDto.getId(), retorno.getIdSetor());
+        assertEquals(usuarioDto.getId(), retorno.getIdUsuario());
 
-        verify(cadastroValidacao,times(1)).validarFuncionario(any(Funcionario.class));
-        verify(securityService,times(1)).obterUsuarioLogado();
-        verify(funcionarioRepository,times(1)).save(any(Funcionario.class));
-        verify(emailFuncionario,times(1)).enviarQrCodePorEmail(eq("moyseszerbieti@gmail.com"),any());
+        verify(cadastroValidacao, times(1)).validarFuncionario(any(Funcionario.class));
+        verify(securityService, times(1)).obterUsuarioLogado();
+        verify(funcionarioRepository, times(1)).save(any(Funcionario.class));
+        verify(emailFuncionario, times(1)).enviarQrCodePorEmail(eq("moyseszerbieti@gmail.com"), any());
     }
 
     @Test
@@ -136,8 +133,8 @@ public class FuncionarioServiceTest {
         assertEquals(entity.getDataNascimento(),dto.getDataNascimento());
         assertEquals(entity.getMatricula(),dto.getMatricula());
         assertEquals(entity.getEmailCorporativo(),dto.getEmailCorporativo());
-        assertEquals(entity.getCargo().getNomeCargo(),dto.getCargo());
-        assertEquals(entity.getSetor().getNomeSetor(),dto.getSetor());
+        assertEquals(entity.getCargo().getNomeCargo(),dto.getIdCargo());
+        assertEquals(entity.getSetor().getNomeSetor(),dto.getIdSetor());
 
     }
 
