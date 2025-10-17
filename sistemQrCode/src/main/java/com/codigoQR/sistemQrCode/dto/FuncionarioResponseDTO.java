@@ -15,8 +15,9 @@ public class FuncionarioResponseDTO {
 
     private UUID matricula;
     private String emailCorporativo;
-    private String cargo;
-    private String setor;
+    private Integer idCargo;
+    private Integer idSetor;
+    private UUID idUsuario;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime dataCadastro;
@@ -32,8 +33,9 @@ public class FuncionarioResponseDTO {
             LocalDate dataNascimento,
             UUID matricula,
             String emailCorporativo,
-            String cargo,
-            String setor,
+            Integer idCargo,
+            Integer idSetor,
+            UUID idUsuario,
             LocalDateTime dataCadastro,
             LocalDateTime dataAtualizacao) {
         this.id = id;
@@ -42,10 +44,15 @@ public class FuncionarioResponseDTO {
         this.dataNascimento = dataNascimento;
         this.matricula = matricula;
         this.emailCorporativo = emailCorporativo;
-        this.cargo = cargo;
-        this.setor = setor;
+        this.idCargo = idCargo;
+        this.idSetor = idSetor;
+        this.idUsuario = idUsuario;
         this.dataCadastro = dataCadastro;
         this.dataAtualizacao = dataAtualizacao;
+    }
+
+    public FuncionarioResponseDTO(){
+
     }
 
     public Integer getId() {
@@ -96,22 +103,6 @@ public class FuncionarioResponseDTO {
         this.emailCorporativo = emailCorporativo;
     }
 
-    public String getCargo() {
-        return cargo;
-    }
-
-    public void setCargo(String cargo) {
-        this.cargo = cargo;
-    }
-
-    public String getSetor() {
-        return setor;
-    }
-
-    public void setSetor(String setor) {
-        this.setor = setor;
-    }
-
     public LocalDateTime getDataCadastro() {
         return dataCadastro;
     }
@@ -126,5 +117,29 @@ public class FuncionarioResponseDTO {
 
     public void setDataAtualizacao(LocalDateTime dataAtualizacao) {
         this.dataAtualizacao = dataAtualizacao;
+    }
+
+    public UUID getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(UUID idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public Integer getIdCargo() {
+        return idCargo;
+    }
+
+    public void setIdCargo(Integer idCargo) {
+        this.idCargo = idCargo;
+    }
+
+    public Integer getIdSetor() {
+        return idSetor;
+    }
+
+    public void setIdSetor(Integer idSetor) {
+        this.idSetor = idSetor;
     }
 }
