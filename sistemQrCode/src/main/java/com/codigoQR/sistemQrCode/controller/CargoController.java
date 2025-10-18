@@ -1,5 +1,6 @@
 package com.codigoQR.sistemQrCode.controller;
 
+import com.codigoQR.sistemQrCode.dto.CargoRequest;
 import com.codigoQR.sistemQrCode.exception.ResourceNotFoundException;
 import com.codigoQR.sistemQrCode.genericController.GenericControllers;
 import com.codigoQR.sistemQrCode.model.Cargo;
@@ -11,8 +12,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.net.URI;
 
 @RestController
 @RequestMapping("cargo")
@@ -28,10 +27,9 @@ public class CargoController implements GenericControllers {
     @PreAuthorize("hasAnyRole('ADMIN','STAFF')")
     @Operation(summary = "Cadastrar", description = "Cadastra um novo cargo no sistema")
     @ApiResponse(responseCode = "201", description = "Cargo cadastrado com sucesso")
-    public ResponseEntity<Object> salvar(@RequestBody Cargo cargo){
-        Cargo cargoSalvo = cargoService.salvarCargo(cargo);
-        URI location = gerarHeaderLocation(cargoSalvo.getId());
-        return ResponseEntity.created(location).build();
+    public ResponseEntity<?> salvar(@RequestBody CargoRequest cargo){
+        CargoRequest cargoSalvo = cargoService.salvarCargo(cargo);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("{id}")
