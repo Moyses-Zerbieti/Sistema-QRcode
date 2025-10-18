@@ -1,5 +1,6 @@
 package com.codigoQR.sistemQrCode.serviceTest;
 
+import com.codigoQR.sistemQrCode.dto.SetorRequest;
 import com.codigoQR.sistemQrCode.exception.ResourceNotFoundException;
 import com.codigoQR.sistemQrCode.model.Setor;
 import com.codigoQR.sistemQrCode.repository.SetorRepository;
@@ -27,15 +28,18 @@ class SetorServiceTest {
 
     @Test
     void salvarSetorTest(){
-        Setor setorTest = new Setor();
+        SetorRequest setorTest = new SetorRequest();
         setorTest.setNomeSetor("Financeiro");
 
-        when(setorRepository.save(any(Setor.class))).thenReturn(setorTest);
+        Setor setorEntity = new Setor();
+        setorEntity.setNomeSetor("Financeiro");
 
-        Setor retorno = this.setorService.salvarSetor(setorTest);
+        when(setorRepository.save(any(Setor.class))).thenReturn(setorEntity);
+
+        SetorRequest retorno = this.setorService.salvarSetor(setorTest);
 
         assertEquals("Financeiro", retorno.getNomeSetor());
-        verify(setorRepository, times(1)).save(setorTest);
+        verify(setorRepository, times(1)).save(any(Setor.class));
     }
 
     @Test
