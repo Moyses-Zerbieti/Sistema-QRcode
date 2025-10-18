@@ -1,5 +1,6 @@
 package com.codigoQR.sistemQrCode.serviceTest;
 
+import com.codigoQR.sistemQrCode.dto.CargoRequest;
 import com.codigoQR.sistemQrCode.exception.ResourceNotFoundException;
 import com.codigoQR.sistemQrCode.model.Cargo;
 import com.codigoQR.sistemQrCode.repository.CargoRepository;
@@ -26,15 +27,18 @@ public class CargoServiceTest {
 
     @Test
     void salvarCargoTest(){
-        Cargo cargoTest = new Cargo();
+        CargoRequest cargoTest = new CargoRequest();
         cargoTest.setNomeCargo("Diretor");
 
-        when(cargoRepository.save(any(Cargo.class))).thenReturn(cargoTest);
+        Cargo cargoEntity = new Cargo();
+        cargoEntity.setNomeCargo("Diretor");
 
-        Cargo retorno = cargoService.salvarCargo(cargoTest);
+        when(cargoRepository.save(any(Cargo.class))).thenReturn(cargoEntity);
+
+        CargoRequest retorno = cargoService.salvarCargo(cargoTest);
 
         assertEquals("Diretor", retorno.getNomeCargo());
-        verify(cargoRepository, times(1)).save(cargoTest);
+        verify(cargoRepository, times(1)).save(any(Cargo.class));
     }
 
     @Test
