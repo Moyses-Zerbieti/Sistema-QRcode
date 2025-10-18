@@ -150,7 +150,7 @@ Para facilitar os testes de endpoints protegidos (como cadastro, atualização e
 
 Use as credenciais abaixo para realizar testes no Swagger:
 
-<pre><code>👤 Usuário: usuarioTest
+<pre><code>👤 Usuário: adminTest
 🔑 Senha: 1234</code></pre>
 
 
