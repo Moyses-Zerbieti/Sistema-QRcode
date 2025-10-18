@@ -1,5 +1,6 @@
 package com.codigoQR.sistemQrCode.controller;
 
+import com.codigoQR.sistemQrCode.dto.SetorRequest;
 import com.codigoQR.sistemQrCode.exception.ResourceNotFoundException;
 import com.codigoQR.sistemQrCode.genericController.GenericControllers;
 import com.codigoQR.sistemQrCode.model.Setor;
@@ -12,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 
 @RestController
 @RequestMapping("setor")
@@ -29,11 +29,9 @@ public class SetorController implements GenericControllers {
     @PreAuthorize("hasAnyRole('ADMIN','STAFF')")
     @Operation(summary = "Cadastrar", description = "Cadastra um novo setor no sistema")
     @ApiResponse(responseCode = "201", description = "Setor cadastrado com sucesso")
-    public ResponseEntity<Object> salvar(@RequestBody Setor setor){
-        Setor salvarSetor = setorService.salvarSetor(setor);
-        URI location = gerarHeaderLocation(salvarSetor.getId());
-        return ResponseEntity.created(location).build();
-
+    public ResponseEntity<?> salvar(@RequestBody SetorRequest setor){
+        SetorRequest salvarSetor = setorService.salvarSetor(setor);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("{id}")
