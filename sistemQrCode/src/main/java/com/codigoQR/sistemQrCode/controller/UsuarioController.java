@@ -1,5 +1,6 @@
 package com.codigoQR.sistemQrCode.controller;
 
+import com.codigoQR.sistemQrCode.dto.UsuarioRequest;
 import com.codigoQR.sistemQrCode.genericController.GenericControllerUsuario;
 import com.codigoQR.sistemQrCode.model.Usuario;
 import com.codigoQR.sistemQrCode.service.UsuarioService;
@@ -11,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import java.net.URI;
 
 @RestController
 @RequestMapping("usuario")
@@ -29,9 +29,9 @@ public class UsuarioController implements GenericControllerUsuario {
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Salvar", description = "Cadastrar um novo usuário")
     @ApiResponse (responseCode = "201", description = "Usuário cadastrado com sucesso")
-    public void salvar(@RequestBody Usuario usuario){
+    public ResponseEntity<?> salvar(@RequestBody UsuarioRequest usuario){
         service.salvar(usuario);
-        URI location = headerLocationUsuario(usuario.getId());
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("{login}")
