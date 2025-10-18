@@ -1,5 +1,6 @@
 package com.codigoQR.sistemQrCode.service;
 
+import com.codigoQR.sistemQrCode.dto.SetorRequest;
 import com.codigoQR.sistemQrCode.exception.ResourceNotFoundException;
 import com.codigoQR.sistemQrCode.model.Setor;
 import com.codigoQR.sistemQrCode.repository.SetorRepository;
@@ -15,8 +16,16 @@ public class SetorService {
         this.setorRepository = setorRepository;
     }
 
-    public Setor salvarSetor(Setor setor){
-        return setorRepository.save(setor);
+    public SetorRequest salvarSetor(SetorRequest setorDTO){
+        Setor novoSetor = new Setor();
+        novoSetor.setNomeSetor(setorDTO.getNomeSetor());
+
+        Setor salvo = setorRepository.save(novoSetor);
+
+        SetorRequest request = new SetorRequest();
+        request.setNomeSetor(novoSetor.getNomeSetor());
+
+        return request;
     }
 
     public Optional<Setor> obterPorId(Integer id){
