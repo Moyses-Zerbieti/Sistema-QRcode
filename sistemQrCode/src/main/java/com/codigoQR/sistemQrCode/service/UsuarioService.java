@@ -1,5 +1,6 @@
 package com.codigoQR.sistemQrCode.service;
 
+import com.codigoQR.sistemQrCode.dto.UsuarioRequest;
 import com.codigoQR.sistemQrCode.exception.ResourceNotFoundException;
 import com.codigoQR.sistemQrCode.model.Usuario;
 import com.codigoQR.sistemQrCode.repository.UsuarioRepository;
@@ -19,10 +20,13 @@ public class UsuarioService {
         this.encoder = encoder;
     }
 
-    public void salvar(Usuario usuario){
-        var senha  = usuario.getSenha();
-        usuario.setSenha(encoder.encode(senha));
-        usuarioRepository.save(usuario);
+    public void salvar(UsuarioRequest usuarioDTO){
+        Usuario novoUsuario = new Usuario();
+        novoUsuario.setLogin(usuarioDTO.getLogin());
+        novoUsuario.setSenha(encoder.encode(usuarioDTO.getSenha()));
+        novoUsuario.setRoles(usuarioDTO.getRoles());
+
+        Usuario salvo = usuarioRepository.save(novoUsuario);
     }
 
     public Usuario ObterPorLogin(String login){
