@@ -1,5 +1,6 @@
 package com.codigoQR.sistemQrCode.service;
 
+import com.codigoQR.sistemQrCode.dto.CargoRequest;
 import com.codigoQR.sistemQrCode.exception.ResourceNotFoundException;
 import com.codigoQR.sistemQrCode.model.Cargo;
 import com.codigoQR.sistemQrCode.repository.CargoRepository;
@@ -15,8 +16,16 @@ public class CargoService {
         this.cargoRepository=cargoRepository;
     }
 
-    public Cargo salvarCargo(Cargo cargo){
-        return cargoRepository.save(cargo);
+    public CargoRequest salvarCargo(CargoRequest cargoDTO){
+        Cargo novoCargo = new Cargo();
+        novoCargo.setNomeCargo(cargoDTO.getNomeCargo());
+
+        Cargo salvo = cargoRepository.save(novoCargo);
+
+        CargoRequest request = new CargoRequest();
+        request.setNomeCargo(novoCargo.getNomeCargo());
+
+        return request;
     }
 
     public Optional<Cargo> obterPorId(Integer id){
