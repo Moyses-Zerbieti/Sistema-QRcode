@@ -1,0 +1,8 @@
+#CRIAR O BANCO DE DADOS NO DOCKER COM UMA IMAGEM DO POSTGRES 16.9
+
+docker run --name qrcode-docker
+-e POSTGRES_PASSWORD=senha_do_conteiner
+-e POSTGRES_USER=login_do_conteiner
+-e POSTGRES_DB=qrcode
+-p 5433:5432
+-d postgres:16.9
