@@ -6,3 +6,7 @@ docker run --name qrcode-docker
 -e POSTGRES_DB=qrcode
 -p 5433:5432
 -d postgres:16.9
+
+$env:DATASOURCE_URL="jdbc:postgresql://192.168.1.8:5433/qrcode"
+$env:DATASOURCE_USERNAME="postgresdocker"
+$env:DATASOURCE_PASSWORD="postgresdocker"
