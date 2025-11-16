@@ -1,12 +1,10 @@
 spring:
-  profiles:
-    active: dev
   application:
     name: Sistema de cadastro QRcode
   datasource:
-    url: jdbc:postgresql://localhost:5432/qrcodedb
-    username: usuario_aqui
-    password: senha_aqui
+    url: ${DATASOURCE_URL}
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 10
