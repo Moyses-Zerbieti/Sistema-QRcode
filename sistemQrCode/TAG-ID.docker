@@ -1,8 +1,18 @@
-#CRIAR O BANCO DE DADOS NO DOCKER COM UMA IMAGEM DO POSTGRES 16.9
+#CRIA A NETWORK
+docker network create tagid-network
 
-docker run --name qrcode-docker
--e POSTGRES_PASSWORD=senha_do_conteiner
--e POSTGRES_USER=login_do_conteiner
--e POSTGRES_DB=qrcode
+#BUILD
+docker build --no-cache --tag moyseszerbieti/tagid . (a partir do Dokcerfile)
+
+#RUN DAS IMAGENS DO POSTGRES E DA APLICAÇÃO DENTRO DA NETWORK
+docker run
+--name tagid-db
+--network tagid-network
+-d
+-e POSTGRES_PASSWORD=(senha)
+-e POSTGRES_USERNAME=(login)
+-e POSTGRES_DB=(nome do banco)
 -p 5433:5432
 -d postgres:16.9
+
+docker run --name tagid-prod -d -p 8080:8080 (nome da imagem)
