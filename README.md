@@ -14,43 +14,8 @@
 
 ---
 
-## 🚧 Status do Projeto
-
-FINALIZADO ✅
-
----
-
-## 🎯 Objetivos Principais
-
-✅ Cadastro de funcionários (nome completo, CPF, e-mail corporativo, data de nascimento, cargoId e setorId de trabalho).
-
-✅ Geração automática de QR Code exclusivo para cada funcionário.
-
-✅ Envio do QR Code para o e-mail corporativo do funcionário após o cadastro.
-
-✅ Listagem de todos os funcionários cadastrados.
-
-✅ Atualização de dados do funcionário por ID.
-
-✅ Recuperação de dados por ID.
-
-✅ Autenticação do responsável pelos cadastros via token por e-mail.
-
-✅ Documentação da API com Swagger.
-
-✅ Geração automática de QR Code exclusivo
-
-✅ Envio do QR Code por e-mail automaticamente
-
-✅ Atualização e listagem de funcionários
-
-✅ Autenticação por token enviado ao responsável via e-mail
-
-✅ Documentação interativa da API com Swagger UI
-
----
-
 ## 💻 Tecnologias Utilizadas
+```
 Java 21
 
 Spring Boot 3.4.5
@@ -71,11 +36,18 @@ Postman (testes da API)
 
 Swagger UI (documentação interativa da API)
 
+Docker (containerização da aplicação e do banco de dados
+```
+
 ---
 
 ## 📂 Organização das Pastas
 
-<pre><code>SistemQrCode/ 
+<pre><code>SistemQrCode/
+  ├── .env                    # Variáveis de ambiente para configuração do projeto
+  ├── .env-template           # Modelo de variáveis de ambiente
+  ├── Dockerfile              # Dockerfile para containerizar a aplicação
+  ├── entrypoint.sh           # Script de inicialização da aplicação no Docker
   └──src 
       └── main/ 
           └── java/ 
@@ -92,12 +64,64 @@ Swagger UI (documentação interativa da API)
                   └─ service/            # Regras de negócio
             └─ resources/
                ├─ application.yml
-               └─ application-example.yml
          └─ test/
             └─ java/
                └─ com/codigoQR/sistemQrCode/
                  └─ serviceTest/        # Testes unitários dos serviços</code></pre>
 
+---
+
+## ⚙️ Configuração das Variáveis de Ambiente
+
+Antes de iniciar a aplicação, é necessário configurar as variáveis de ambiente que o sistema utiliza para conexão com o banco de dados e envio de e-mails. Para isso, crie ou edite o arquivo .env na raiz do projeto (você pode usar o .env-template como base).
+
+
+### 🔹 Variáveis do Banco de Dados (PostgreSQL)
+| Variável              | Descrição                                                                                 |
+| --------------------- | ----------------------------------------------------------------------------------------- |
+| `POSTGRES_DB`         | Nome do banco de dados que será utilizado pelo Tag-ID. Ex: `meu_banco`                       |
+| `POSTGRES_USER`       | Usuário do banco de dados. Ex: `meu_usuario`                                           |
+| `POSTGRES_PASSWORD`   | Senha do usuário do banco de dados. Ex: `minha_senha`                                  |
+| `DATASOURCE_URL`      | URL de conexão JDBC do PostgreSQL. Ex: `jdbc:postgresql://NOME_DO_CONTEINER_DO_BANCO_DE_DADOS:5432/meu_banco`   |
+| `DATASOURCE_USERNAME` | Usuário do banco de dados usado pela aplicação (geralmente o mesmo de POSTGRES_USER)      |
+| `DATASOURCE_PASSWORD` | Senha usada pela aplicação para acessar o banco (geralmente o mesmo de POSTGRES_PASSWORD) |
+
+### 💡 Dica: se estiver usando Docker, configure POSTGRES_DB, POSTGRES_USER e POSTGRES_PASSWORD de acordo com o que foi definido nos containers.
+
+---
+
+| Variável         | Descrição                                                                                     |
+| ---------------- | --------------------------------------------------------------------------------------------- |
+| `EMAIL_USER`     | E-mail que será utilizado para enviar os QR Codes aos funcionários. Ex: `seu-email@gmail.com` |
+| `EMAIL_PASSWORD` | Senha de aplicativo gerada no Google para envio de e-mails. **Não use sua senha normal**.     |
+
+### Como gerar a senha de aplicativo no Gmail:
+
+Acesse Conta Google > Segurança > Senhas de App
+.
+
+Escolha Selecionar app > Outro (Personalizado) e dê um nome (ex: TagID).
+
+Clique em Gerar e copie a senha gerada.
+
+Cole essa senha no arquivo .env em EMAIL_PASSWORD.
+
+🔐 Essa senha permite que a aplicação envie e-mails em seu nome sem expor sua senha real.
+
+### 🔹 Exemplo de `.env` configurado
+
+```env
+POSTGRES_DB=meu_banco
+POSTGRES_USER=meu_usuario
+POSTGRES_PASSWORD=minha_senha
+
+DATASOURCE_URL=jdbc:postgresql://NOME_DO_CONTEINER_DO_BANCO_DE_DADOS:5432/meu_banco
+DATASOURCE_USERNAME=meu_usuario
+DATASOURCE_PASSWORD=minha_senha
+
+EMAIL_USER=seu-email@gmail.com
+EMAIL_PASSWORD=senha-gerada-pelo-google
+```
 ---
 
 ## 📬 Testes com Postman
@@ -155,4 +179,3 @@ Use as credenciais abaixo para realizar testes no Swagger:
 
 
 ### Esse usuário possui perfil ADMIN, permitindo o acesso completo aos endpoints disponíveis no sistema.
-
